@@ -77,7 +77,7 @@ function garf() {
 
     
     var linky = `https://raw.githubusercontent.com/FluffyCookie000/garfield/main/comic/${year}/${nmonth}/ga${year.toString().slice(-2)}${montha}${daya}.gif`;
-    
+    var url = "bitch"
 
     checkIfImageExists(linky, (exists) => {
         if (exists) {
@@ -85,7 +85,8 @@ function garf() {
         } else {
             var url = linky.replace('gif', 'jpg');
         }
-    return url
+    console.log(url)
+    return url;
 
     });
 
