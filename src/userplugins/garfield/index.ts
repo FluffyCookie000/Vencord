@@ -78,17 +78,14 @@ function garf() {
     
     var linky = `https://raw.githubusercontent.com/FluffyCookie000/garfield/main/comic/${year}/${nmonth}/ga${year.toString().slice(-2)}${montha}${daya}.gif`;
 
-    const final = checkIfImageExists(linky, (exists) => {
-        if (exists) {
-            var url = linky
-            return url
-        } else {
-            var url = linky.replace('gif', 'jpg');
-            return url
-        }
-    });
-    console.log(`2   ${final}`)
-    return final;
+    if (year > 2010) {
+        var url = linky.replace('gif', 'jpeg')
+    } else {
+        var url = linky
+    }
+
+    console.log(`2   ${url}`)
+    return url;
 
 }
 
