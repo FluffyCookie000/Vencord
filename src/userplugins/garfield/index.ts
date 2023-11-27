@@ -79,7 +79,12 @@ function garf() {
     var linky = `https://raw.githubusercontent.com/FluffyCookie000/garfield/main/comic/${year}/${nmonth}/ga${year.toString().slice(-2)}${montha}${daya}.gif`;
 
     if (year > 2010) {
-        var url = linky.replace('gif', 'jpeg')
+        const date = new Date(`${year}-${montha}-${daya}`);
+        if (date == 0) {
+            var url = linky.replace('gif', 'jpeg')
+        } else {
+            var url = linky
+        }
     } else {
         var url = linky
     }
