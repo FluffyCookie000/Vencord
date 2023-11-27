@@ -90,7 +90,6 @@ const PendingReplyStore = findByPropsLazy("getPendingReply");
 
 function sendMessage(channelId, message) {
     message = {
-        // The following are required to prevent Discord from throwing an error
         invalidEmojis: [],
         tts: false,
         validNonShortcutEmojis: [],
