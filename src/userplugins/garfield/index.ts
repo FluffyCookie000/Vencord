@@ -124,6 +124,7 @@ export default definePlugin({
         execute: (_, ctx) => {
             const link = garf()
             const list = link.split("/");
+
             let year = list[7]
             let month = list[9].slice(4, 6)
             let day = (list[9].slice(6)).slice(0,2)
@@ -131,16 +132,28 @@ export default definePlugin({
             checkIfImageExists(link, (exists) => {
                 if (exists) {
                     var url = link
-                    sendMessage(ctx.channel.id, {
-                        content: `[${month}/${day}/${year}](${url})`
-                    });
+                    const img = new Image();
+                    img.src = url
+                    // sendMessage(ctx.channel.id, {
+                    //     content: `[${month}/${day}/${year}](${url})`
+                    const file = new File([img.bytesView()], list[9], { type: "image/gif" });
+                    // Immediately after the command finishes, Discord clears all input, including pending attachments.
+                    // Thus, setTimeout is needed to make this execute after Discord cleared the input
+                    setTimeout(() => UploadHandler.promptToUpload([file], cmdCtx.channel, DRAFT_TYPE), 10);
+                    
                     
 
                 } else {
                     var url = link.replace('gif', 'jpg')
-                    sendMessage(ctx.channel.id, {
-                        content: `[${month}/${day}/${year}](${url})`
-                    });
+                    const img = new Image();
+                    img.src = url
+                    // sendMessage(ctx.channel.id, {
+                    //     content: `[${month}/${day}/${year}](${url})`
+                    const file = new File([img.bytesView()], list[9], { type: "image/gif" });
+                    // Immediately after the command finishes, Discord clears all input, including pending attachments.
+                    // Thus, setTimeout is needed to make this execute after Discord cleared the input
+                    setTimeout(() => UploadHandler.promptToUpload([file], cmdCtx.channel, DRAFT_TYPE), 10);
+                    
                 }
             });
             
