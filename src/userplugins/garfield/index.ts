@@ -133,7 +133,7 @@ export default definePlugin({
         execute: (_, ctx) => {
             // Note: Due to how Discord handles commands, we need to manually create and send the message
             sendMessage(ctx.channel.id, {
-                content: `${garf()}`
+                content: 'weee'
             });
         }
 
