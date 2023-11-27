@@ -1,9 +1,7 @@
 import { ApplicationCommandInputType, sendBotMessage } from "@api/Commands";
-import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 import { FluxDispatcher } from "@webpack/common";
-import { UploadHandler, UserUtils } from "@webpack/common";
 
 function checkIfImageExists(url, callback) {
     const img = new Image();
@@ -133,29 +131,16 @@ export default definePlugin({
             checkIfImageExists(link, (exists) => {
                 if (exists) {
                     var url = link
-                    const img = new Image();
-                    img.src = url
-                    // sendMessage(ctx.channel.id, {
-                    //     content: `[${month}/${day}/${year}](${url})`
-                    const file = new File([img.bytesView()], list[9], { type: "image/gif" });
-                    // Immediately after the command finishes, Discord clears all input, including pending attachments.
-                    // Thus, setTimeout is needed to make this execute after Discord cleared the input
-                    setTimeout(() => UploadHandler.promptToUpload([file], cmdCtx.channel, DRAFT_TYPE), 10);
-                    
-                    
+                    sendMessage(ctx.channel.id, {
+                        content: `${month}/${day}/${year}\n[${list[9]}](${url})`
 
-                } else {
+                })} else {
                     var url = link.replace('gif', 'jpg')
-                    const img = new Image();
-                    img.src = url
-                    // sendMessage(ctx.channel.id, {
-                    //     content: `[${month}/${day}/${year}](${url})`
-                    const file = new File([img.bytesView()], list[9], { type: "image/gif" });
-                    // Immediately after the command finishes, Discord clears all input, including pending attachments.
-                    // Thus, setTimeout is needed to make this execute after Discord cleared the input
-                    setTimeout(() => UploadHandler.promptToUpload([file], cmdCtx.channel, DRAFT_TYPE), 10);
+                    sendMessage(ctx.channel.id, {
+                        content: `${month}/${day}/${year}\n[${list[9]}](${url})`
+
                     
-                }
+                })}
             });
             
         }
