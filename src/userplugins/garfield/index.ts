@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType } from "../../api/Commands";
+import { ApplicationCommandOptionType, OptionalMessageOption, findOption } from "../../api/Commands";
 import definePlugin from "../../utils/types";
 
 
@@ -103,19 +103,9 @@ export default definePlugin({
     commands: [{
         name: "Garfield",
         description: "Sends a garfield comic",
-        options: [
-            {
-                name: "placeholder",
-                description: "placeholder description",
-                type: ApplicationCommandOptionType.BOOLEAN,
-                required: false,
-            },
-        ],
-
-        async execute() {
-            return {
-                content: garf(),
-            };
-        },
+        options: [OptionalMessageOption],
+        execute: opts => ({
+            content: findOption(opts, "message", "") + `${garf()}`
+        })
     }]
 });
