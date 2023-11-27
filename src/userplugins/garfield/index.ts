@@ -132,14 +132,14 @@ export default definePlugin({
                 if (exists) {
                     var url = link
                     sendMessage(ctx.channel.id, {
-                        content: `[${month}/${day}/${year}](${url})** **`
+                        content: `[${month}/${day}/${year}](${url})`
                     });
                     
 
                 } else {
                     var url = link.replace('gif', 'jpg')
                     sendMessage(ctx.channel.id, {
-                        content: `[${month}/${day}/${year}](${url})** **`
+                        content: `[${month}/${day}/${year}](${url})`
                     });
                 }
             });
