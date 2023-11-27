@@ -82,6 +82,7 @@ function garf() {
             return linky;
 
         } else {
+            var linky = linky.replace('gif', 'jpg')
             return linky;
         }
     });
@@ -96,16 +97,16 @@ export default definePlugin({
     name: "Garfield",
     authors: [{
         name: "FluffyCookie",
-        id: BigInt(557286947106586627),
+        id: 557286947106586627,
     }],
     description: "Adds a slash command to send a random garfield comic",
     dependencies: ["CommandsAPI"],
     commands: [{
-        name: "Garfield",
+        name: "garfield",
         description: "Sends a garfield comic",
         options: [OptionalMessageOption],
-        execute: ({
-            content: garf()
+        execute: opts => ({
+            content: findOption(opts, "message", "") + garf()
         })
     }]
 });
