@@ -1,6 +1,6 @@
-import { ApplicationCommandOptionType, OptionalMessageOption, findOption } from "../../api/Commands";
-import definePlugin from "../../utils/types";
-
+import { ApplicationCommandInputType, findOption, OptionalMessageOption, RequiredMessageOption, sendBotMessage } from "@api/Commands";
+import { Devs } from "@utils/constants";
+import definePlugin from "@utils/types";
 
 function checkIfImageExists(url, callback) {
     const img = new Image();
