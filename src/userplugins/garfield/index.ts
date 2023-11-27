@@ -1,5 +1,4 @@
 import { ApplicationCommandInputType, findOption, OptionalMessageOption, RequiredMessageOption, sendBotMessage } from "@api/Commands";
-import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 function checkIfImageExists(url, callback) {
@@ -79,32 +78,20 @@ function garf() {
 
     checkIfImageExists(linky, (exists) => {
         if (exists) {
+            console.log(linky);
             return linky;
 
+
         } else {
-            var linky = linky.replace('gif', 'jpg')
+            var linky = linky.replace('gif', 'jpg');
+            console.log(linky);
             return linky;
         }
     });
 
 }
 
-function sendMessage(channelId, message) {
-    message = {
-        // The following are required to prevent Discord from throwing an error
-        invalidEmojis: [],
-        tts: false,
-        validNonShortcutEmojis: [],
-        ...message
-    };
-    const reply = PendingReplyStore.getPendingReply(channelId);
-    MessageCreator.sendMessage(channelId, message, void 0, MessageCreator.getSendMessageOptionsForReply(reply))
-        .then(() => {
-            if (reply) {
-                FluxDispatcher.dispatch({ type: "DELETE_PENDING_REPLY", channelId });
-            }
-        });
-}
+
 
 export default definePlugin({
     name: "Garfield",
@@ -117,13 +104,10 @@ export default definePlugin({
     commands: [{
         name: "garfield",
         description: "Sends a garfield comic",
-        options: [],
-        execute: (_, ctx) => {
- 
-            // Note: Due to how Discord handles commands, we need to manually create and send the message
-            sendMessage(ctx.channel.id, {
-                content: `${garf()}`
-            });}
+        options: [OptionalMessageOption],
+        execute: opts => ({
+            content: garf(findOption(opts, "message", ""))
+        })
 
     }]
 });
