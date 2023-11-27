@@ -104,8 +104,8 @@ export default definePlugin({
         name: "Garfield",
         description: "Sends a garfield comic",
         options: [OptionalMessageOption],
-        execute: opts => ({
-            content: findOption(opts, "message", "") + garf()
+        execute: ({
+            content: garf()
         })
     }]
 });
