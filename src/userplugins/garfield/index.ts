@@ -131,9 +131,11 @@ export default definePlugin({
         description: "Sends a garfield comic",
         options: [],
         execute: (_, ctx) => {
+            const link = garf()
+            console.log(link)
             // Note: Due to how Discord handles commands, we need to manually create and send the message
             sendMessage(ctx.channel.id, {
-                content: (garf())
+                content: link
             });
         }
 
