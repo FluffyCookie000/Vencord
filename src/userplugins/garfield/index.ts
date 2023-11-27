@@ -3,6 +3,7 @@ import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 import { FluxDispatcher } from "@webpack/common";
+import { UploadHandler, UserUtils } from "@webpack/common";
 
 function checkIfImageExists(url, callback) {
     const img = new Image();
