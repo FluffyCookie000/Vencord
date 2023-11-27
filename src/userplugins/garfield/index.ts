@@ -85,7 +85,7 @@ function garf() {
         } else {
             var url = linky.replace('gif', 'jpg');
         }
-    console.log(url)
+        console.log(`2   ${url}`)
     return url;
 
     });
@@ -130,7 +130,7 @@ export default definePlugin({
         options: [],
         execute: (_, ctx) => {
             const link = garf()
-            console.log(link)
+            console.log(`1   ${link}`)
             // Note: Due to how Discord handles commands, we need to manually create and send the message
             sendMessage(ctx.channel.id, {
                 content: link
