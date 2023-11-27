@@ -129,6 +129,7 @@ export default definePlugin({
     commands: [{
         name: "garfield",
         description: "Sends a garfield comic",
+        inputType: ApplicationCommandInputType.BUILT_IN,
         options: [],
         execute: (_, ctx) => {
             const link = garf()
