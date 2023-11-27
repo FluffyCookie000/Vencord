@@ -124,20 +124,18 @@ export default definePlugin({
         execute: (_, ctx) => {
             const link = garf()
 
-                checkIfImageExists(link, (exists) => {
+            checkIfImageExists(link, (exists) => {
                 if (exists) {
                     var url = link
-                    var comicdate = `${month}/${day}/${year}`
                     sendMessage(ctx.channel.id, {
-                        content: `${comicdate}\n${url}`
+                        content: `${url}`
                     });
                     
 
                 } else {
                     var url = link.replace('gif', 'jpg')
-                    var comicdate = `${month}/${day}/${year}`
                     sendMessage(ctx.channel.id, {
-                        content: `${comicdate}\n${url}`
+                        content: `${url}`
                     });
                 }
             });
