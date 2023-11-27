@@ -81,14 +81,15 @@ function garf() {
 
     checkIfImageExists(linky, (exists) => {
         if (exists) {
-            console.log(linky);
-            return linky;
+            var url = linky
+            console.log(url);
+            return url;
 
 
         } else {
-            var linky = linky.replace('gif', 'jpg');
-            console.log(linky);
-            return linky;
+            var url = linky.replace('gif', 'jpg');
+            console.log(url);
+            return url;
         }
     });
 
