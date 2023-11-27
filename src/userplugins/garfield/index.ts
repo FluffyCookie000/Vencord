@@ -72,9 +72,9 @@ function garf() {
     }
 
 
-
+    
     var linky = `https://raw.githubusercontent.com/FluffyCookie000/garfield/main/comic/${year}/${nmonth}/ga${year.toString().slice(-2)}${montha}${daya}.gif`;
-
+    
 
     checkIfImageExists(linky, (exists) => {
         if (exists) {
@@ -104,10 +104,9 @@ export default definePlugin({
     commands: [{
         name: "garfield",
         description: "Sends a garfield comic",
-        options: [OptionalMessageOption],
+        options: [],
         execute: opts => ({
-            content: garf(findOption(opts, "message", ""))
-        })
+            content: garf()     })
 
     }]
 });
