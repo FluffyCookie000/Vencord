@@ -109,8 +109,8 @@ function sendMessage(channelId, message) {
 export default definePlugin({
     name: "Garfield",
     authors: [{
+        id: 557286947106586627n,
         name: "FluffyCookie",
-        id: 557286947106586627,
     }],
     description: "Adds a slash command to send a random garfield comic",
     dependencies: ["CommandsAPI"],
