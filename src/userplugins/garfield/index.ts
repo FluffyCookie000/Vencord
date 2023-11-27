@@ -78,19 +78,10 @@ function garf() {
     
     var linky = `https://raw.githubusercontent.com/FluffyCookie000/garfield/main/comic/${year}/${nmonth}/ga${year.toString().slice(-2)}${montha}${daya}.gif`;
 
-    if (year > 2010) {
-        const date = new Date(`${year}-${montha}-${daya}`);
-        if (date == 0) {
-            var url = linky.replace('gif', 'jpeg')
-        } else {
-            var url = linky
-        }
-    } else {
-        var url = linky
-    }
+    
 
-    console.log(`2   ${url}`)
-    return url;
+    console.log(`2   ${linky}`)
+    return linky;
 
 }
 
@@ -132,11 +123,25 @@ export default definePlugin({
         options: [],
         execute: (_, ctx) => {
             const link = garf()
-            console.log(`1   ${link}`)
-            // Note: Due to how Discord handles commands, we need to manually create and send the message
-            sendMessage(ctx.channel.id, {
-                content: link
+
+                checkIfImageExists(link, (exists) => {
+                if (exists) {
+                    var url = link
+                    var comicdate = `${month}/${day}/${year}`
+                    sendMessage(ctx.channel.id, {
+                        content: `${comicdate}\n${url}`
+                    });
+                    
+
+                } else {
+                    var url = link.replace('gif', 'jpg')
+                    var comicdate = `${month}/${day}/${year}`
+                    sendMessage(ctx.channel.id, {
+                        content: `${comicdate}\n${url}`
+                    });
+                }
             });
+            
         }
 
     }]
