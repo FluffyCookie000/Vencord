@@ -126,16 +126,9 @@ export default definePlugin({
         description: "Sends a garfield comic",
         options: [],
         execute: (_, ctx) => {
-            const track: Track | null = Spotify.getTrack();
-            if (track === null) {
-                sendBotMessage(ctx.channel.id, {
-                    content: "You're not listening to any music."
-                });
-                return;
-            }
             // Note: Due to how Discord handles commands, we need to manually create and send the message
             sendMessage(ctx.channel.id, {
-                content: `https://open.spotify.com/track/${track.id}`
+                content: `${garf()}`
             });
         }
 
