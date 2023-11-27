@@ -1,5 +1,8 @@
-import { ApplicationCommandInputType, findOption, OptionalMessageOption, RequiredMessageOption, sendBotMessage } from "@api/Commands";
+import { ApplicationCommandInputType, sendBotMessage } from "@api/Commands";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
+import { findByPropsLazy } from "@webpack";
+import { FluxDispatcher } from "@webpack/common";
 
 function checkIfImageExists(url, callback) {
     const img = new Image();
@@ -91,6 +94,23 @@ function garf() {
 
 }
 
+function sendMessage(channelId, message) {
+    message = {
+        // The following are required to prevent Discord from throwing an error
+        invalidEmojis: [],
+        tts: false,
+        validNonShortcutEmojis: [],
+        ...message
+    };
+    const reply = PendingReplyStore.getPendingReply(channelId);
+    MessageCreator.sendMessage(channelId, message, void 0, MessageCreator.getSendMessageOptionsForReply(reply))
+        .then(() => {
+            if (reply) {
+                FluxDispatcher.dispatch({ type: "DELETE_PENDING_REPLY", channelId });
+            }
+        });
+}
+
 
 
 export default definePlugin({
@@ -105,8 +125,19 @@ export default definePlugin({
         name: "garfield",
         description: "Sends a garfield comic",
         options: [],
-        execute: opts => ({
-            content: garf()     })
+        execute: (_, ctx) => {
+            const track: Track | null = Spotify.getTrack();
+            if (track === null) {
+                sendBotMessage(ctx.channel.id, {
+                    content: "You're not listening to any music."
+                });
+                return;
+            }
+            // Note: Due to how Discord handles commands, we need to manually create and send the message
+            sendMessage(ctx.channel.id, {
+                content: `https://open.spotify.com/track/${track.id}`
+            });
+        }
 
     }]
 });
