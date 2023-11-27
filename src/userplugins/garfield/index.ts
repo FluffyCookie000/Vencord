@@ -123,19 +123,23 @@ export default definePlugin({
         options: [],
         execute: (_, ctx) => {
             const link = garf()
+            const list = link.split("/");
+            let year = list[7]
+            let month = list[9].slice(4, 6)
+            let day = (list[9].slice(6)).slice(0,2)
 
             checkIfImageExists(link, (exists) => {
                 if (exists) {
                     var url = link
                     sendMessage(ctx.channel.id, {
-                        content: `${url}`
+                        content: `${month}/${day}/${year}\n${url}`
                     });
                     
 
                 } else {
                     var url = link.replace('gif', 'jpg')
                     sendMessage(ctx.channel.id, {
-                        content: `${url}`
+                        content: `${month}/${day}/${year}\n${url}`
                     });
                 }
             });
