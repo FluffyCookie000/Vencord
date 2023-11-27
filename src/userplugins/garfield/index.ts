@@ -87,10 +87,23 @@ function garf() {
         }
     });
 
+}
 
-
-
-
+function sendMessage(channelId, message) {
+    message = {
+        // The following are required to prevent Discord from throwing an error
+        invalidEmojis: [],
+        tts: false,
+        validNonShortcutEmojis: [],
+        ...message
+    };
+    const reply = PendingReplyStore.getPendingReply(channelId);
+    MessageCreator.sendMessage(channelId, message, void 0, MessageCreator.getSendMessageOptionsForReply(reply))
+        .then(() => {
+            if (reply) {
+                FluxDispatcher.dispatch({ type: "DELETE_PENDING_REPLY", channelId });
+            }
+        });
 }
 
 export default definePlugin({
@@ -105,8 +118,12 @@ export default definePlugin({
         name: "garfield",
         description: "Sends a garfield comic",
         options: [],
-        execute: opts => ({
-            content: (garf()).toString()
-        })
+        execute: (_, ctx) => {
+ 
+            // Note: Due to how Discord handles commands, we need to manually create and send the message
+            sendMessage(ctx.channel.id, {
+                content: `${garf()}`
+            });}
+
     }]
 });
